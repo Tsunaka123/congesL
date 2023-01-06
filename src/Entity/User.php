@@ -46,7 +46,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column]
     #[Assert\Length(min: 2, max: 250)]
     private ?string $password = null;
-  
+
     public function eraseCredentials()
     {
 
