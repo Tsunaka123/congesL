@@ -16,7 +16,9 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 
 class RegistrationController extends AbstractController
 {
-    #[Route('/register', name: 'app_register')]
+    /**
+     * @Route("/inscription", name="app_register")
+     */
     public function register(Request $request, UserPasswordHasherInterface $userPasswordHasher, UserAuthenticatorInterface $userAuthenticator, UserAuthentificatorAuthenticator $authenticator, EntityManagerInterface $entityManager): Response
     {
         $user = new User();
@@ -32,18 +34,24 @@ class RegistrationController extends AbstractController
                 )
             );
 
-
-
-
             $entityManager->persist($user);
             $entityManager->flush();
-            // do anything else you need here, like send an email
++
+            $this->addFlash(
+                'notice',
+                'Le compte a été créé avec succès.');
 
-            return $userAuthenticator->authenticateUser(
-                $user,
-                $authenticator,
-                $request
-            );
+
+            return $this->redirectToRoute('app_register');
+
+
+            //Authentification possible apres création de compte, déconnecté pour l'usage de ce site
+            //return $userAuthenticator->authenticateUser(
+            //    $user,
+            //    $authenticator,
+            //    $request
+            //);
+
         }
 
         return $this->render('registration/register.html.twig', [

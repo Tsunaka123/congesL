@@ -10,4 +10,12 @@
 
         <button type="submit" class="btn">Valider l'inscription</button>
     {{ form_end(registrationForm) }}
+
+    {% for label, messages in app.flashes %}
+        {% for message in messages %}
+            <div class="flash-{{ label }}">
+                {{ message }}
+            </div>
+        {% endfor %}
+    {% endfor %}
 {% endblock %}
