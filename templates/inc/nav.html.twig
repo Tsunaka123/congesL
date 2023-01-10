@@ -5,14 +5,29 @@
 
 <nav>
     <ul>
-        {%if app.user %}
-        <li><a href="{{ path('homepage') }}" title="Acceuil">Acceuil</a> </li>
-        <li><a href="{{ path('app_logout') }}" title="Logout">Se déconnecter ({{ app.user.username }}) </a> </li>
 
+
+        <li><a href="{{ path('homepage') }}" title="Acceuil">Acceuil</a> </li>
+
+
+        {% if app.user %}
+            <li><a href="{{ path('app_gestionconges') }}" title="Gestionconges">Gérer ses congés</a> </li>
+            <li><a href="{{ path('app_planning') }}" title="Logout">Planning</a> </li>
+            <li><a href="{{ path('app_profil') }}" title="Logout">Profil </a> </li>
+        {% endif %}
+
+
+        {% if is_granted("ROLE_ADMIN") %}
+            <li><a href="{{ path('app_adminapp_dashboard') }}" title="Dashboard">Panneau Administrateur</a> </li>
+        {% endif %}
+
+
+        {% if app.user %}
+            <li><a href="{{ path('app_logout') }}" title="Logout">Se déconnecter ({{ app.user.username }}) </a> </li>
         {%else %}
         <li><a href="{{ path('app_login') }}" title=Login">Connexion</a> </li>
         {% endif %}
-        <li><a href="{{ path('app_register') }}" title="Register">S'inscrire</a> </li>
+
 
     </ul>
 

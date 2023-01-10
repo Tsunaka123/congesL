@@ -6,15 +6,17 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-class MainPageController extends AbstractController
+class GestionCongesController extends AbstractController
 {
     /**
-     * @Route("/u/acceuil", name="homepage")
+     * @Route("u/gestionconges", name="app_gestionconges")
      */
+
+
     public function index(): Response
     {
-        return $this->render('pages/mainpage.html.twig', [
-            'controller_name' => 'MainPageController',
+        return $this->render('pages/gestionconges.html.twig', [
+            'controller_name' => 'GestionCongesController',
         ]);
     }
 }
