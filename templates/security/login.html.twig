@@ -1,9 +1,20 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Se connecter{% endblock %}
+{% block title %}Se connecter | Congés{% endblock %}
 
 {% block body %}
+
+<html>
+
+
+<head>
+    {% include('inc/nav.html.twig') %}
+</head>
+
+
 <form method="post">
+
+
     {% if error %}
         <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
     {% endif %}
@@ -14,26 +25,42 @@
         </div>
     {% endif %}
 
+
+
+    <body>
+
+        <div class="container1">
+    <link rel="stylesheet" href="{{ asset('css/login.css') }}">
     <h1 class="h3 mb-3 font-weight-normal">Se connecter</h1>
-    <label for="inputUsername">Nom d'utilisateur</label>
-    <input type="text" value="{{ last_username }}" name="username" id="inputUsername" class="form-control" autocomplete="username" required autofocus>
-    <label for="inputPassword">Mot de passe</label>
-    <input type="password" name="password" id="inputPassword" class="form-control" autocomplete="current-password" required>
+        </div>
+
+        <div class="container2"
+    <label for="inputUsername" >Nom d'utilisateur</label><br>
+
+    <input type="text" class="resizedTextbox" value="{{ last_username }}" name="username"  id="inputUsername" class="form-control" autocomplete="username" required autofocus><br><br>
+
+    <label for="inputPassword">Mot de passe</label><br>
+
+    <input type="password" class="resizedTextbox" name="password" id="inputPassword" class="form-control" autocomplete="current-password" required><br><br>
 
     <input type="hidden" name="_csrf_token"
-           value="{{ csrf_token('authenticate') }}"
-    >
-
-
+           value="{{ csrf_token('authenticate') }}">
 
         <div class="checkbox mb-3">
             <label>
                 <input type="checkbox" name="_remember_me"> Se souvenir de moi
-            </label>
+            </label><br>
         </div>
 
     <button class="btn btn-lg btn-primary" type="submit">
         Se connecter
     </button>
+
+        </div>
+
+
+    </body>
 </form>
+</html>
 {% endblock %}
+

@@ -24,22 +24,22 @@ class RegistrationFormType extends AbstractType
     {
         $builder
             ->add('lastName', TextType::class, [
-                'label' => 'Nom de famille :',
+                'label' => 'Nom de famille : ',
                 'mapped' => true,
             ])
 
             ->add('firstName', TextType::class, [
-                'label' => 'Prénom :',
+                'label' => 'Prénom : ',
                 'mapped' => true,
             ])
 
             ->add('email', EmailType::class, [
-                'label' => 'Email :',
+                'label' => 'Email : ',
                 'mapped' => true,
             ])
 
             ->add('username', TextType::class, [
-                'label' => 'Identifiant de connexion :',
+                'label' => 'Identifiant de connexion : ',
                 'mapped' => true,
             ])
 
@@ -48,8 +48,8 @@ class RegistrationFormType extends AbstractType
                 'invalid_message' => 'The password fields must match.',
                 'options' => ['attr' => ['class' => 'password-field']],
                 'required' => true,
-                'first_options'  => ['label' => 'Mot de passe :'],
-                'second_options' => ['label' => 'Confirmation :'],
+                'first_options'  => ['label' => 'Mot de passe : '],
+                'second_options' => ['label' => 'Confirmation : '],
                 'mapped' => false,
                 'constraints' => [
                     new NotBlank([
@@ -65,6 +65,7 @@ class RegistrationFormType extends AbstractType
             ])
 
             ->add('roles', ChoiceType::class, [
+                'label' => 'Role :',
                 'choices' => [
                     'Utilisateur' => 'ROLE_USER',
                     'Valideur' => 'ROLE_VALIDATOR',
