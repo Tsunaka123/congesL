@@ -7,12 +7,14 @@
     <ul>
 
 
+
+
         <li><a href="{{ path('homepage') }}" title="Acceuil">Acceuil</a> </li>
 
 
         {% if app.user %}
             <li><a href="{{ path('app_gestionconges') }}" title="Gestionconges">Gérer ses congés</a> </li>
-            <li><a href="{{ path('app_planning') }}" title="Logout">Planning</a> </li>
+            <li><a href="{{ path('calendar_index') }}" title="Logout">Planning</a> </li>
             <li><a href="{{ path('app_profil') }}" title="Logout">Profil </a> </li>
         {% endif %}
 
