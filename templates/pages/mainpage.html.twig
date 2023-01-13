@@ -3,15 +3,14 @@
 {% block title %}Acceuil!{% endblock %}
 
 {% block body %}
-    <html>
-    <head>
-        {% include('inc/nav.html.twig') %}
-        <link rel="stylesheet" href="{{ asset('css/normalize.css') }}">
-        <link rel="stylesheet" href="{{ asset('css/bootstrap.base.css') }}">
-    </head>
-    <body>
-    <h1>Acceuil</h1>
-
-    </body>
-    </html>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-4"></div>
+            <div class="col-4">
+                <h1 class="text-center my-4">Test de Bootstrap</h1>
+                <a href="" class="btn btn-primary">test</a>
+            </div>
+            <div class="col-4"></div>
+        </div>
+    </div>
 {% endblock %}
