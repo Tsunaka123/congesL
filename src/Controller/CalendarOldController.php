@@ -15,10 +15,10 @@ use Doctrine\ORM\EntityManagerInterface;
 /**
  * @Route("/calendar")
  */
-class CalendarController extends AbstractController
+class CalendarOldController extends AbstractController
 {
     /**
-     * @Route("/", name="calendar_index", methods={"GET"})
+     * @Route("/", name="app_calendarindex", methods={"GET"})
      */
     public function index(CalendarRepository $calendarRepository): Response
     {

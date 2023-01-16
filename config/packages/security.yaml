@@ -44,7 +44,8 @@ security:
 
     role_hierarchy:
         ROLE_VALIDEUR: ROLE_USER
-        ROLE_ADMIN: ROLE_VALIDEUR
+        ROLE_DRH: ROLE_VALIDEUR
+        ROLE_ADMIN: ROLE_DRH
         ROLE_SUPERADMIN: [ROLE_ADMIN, ROLE_ALLOWED_TO_SWITCH]
 
 

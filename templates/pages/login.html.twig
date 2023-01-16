@@ -5,10 +5,7 @@
 {% block body %}
 
 <html>
-
-
 <head>
-    {% include('inc/nav.html.twig') %}
 </head>
 
 
@@ -30,11 +27,10 @@
     <body>
 
         <div class="container1">
-    <link rel="stylesheet" href="{{ asset('css/login.css') }}">
     <h1 class="h3 mb-3 font-weight-normal">Se connecter</h1>
         </div>
 
-        <div class="container2"
+        <div class="container2">
     <label for="inputUsername" >Nom d'utilisateur</label><br>
 
     <input type="text" class="resizedTextbox" value="{{ last_username }}" name="username"  id="inputUsername" class="form-control" autocomplete="username" required autofocus><br><br>

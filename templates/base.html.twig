@@ -8,62 +8,115 @@
 </head>
 <body>
 <!-- Navbar -->
+
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <!-- Container wrapper -->
-    <div class="container-fluid">
+    <div class="container-fluid ms-5">
         <!-- Navbar brand -->
-        <a class="navbar-brand" href="#">Navbar</a>
+
+       <div class="acceuilfont" >
+        <a class="navbar-brand" href="{{ path('homepage') }}">Congés</a>
+    </div>
 
         <!-- Toggle button -->
-        <button class="navbar-toggler" type="button" data-mdb-toggle="collapse"
-                data-mdb-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent" aria-controls="navbarNav" aria-expanded="false"
                 aria-label="Toggle navigation">
-            <i class="fas fa-bars text-light"></i>
+            <span class="navbar-toggler-icon"></span>
         </button>
 
         <!-- Collapsible wrapper -->
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <!-- Left links -->
-            <ul class="navbar-nav me-auto d-flex flex-row mt-3 mt-lg-0">
-                <li class="nav-item text-center me-3 my-4">
-                    <a class="nav-link active" aria-current="page" href="#!">
+            <div class="navbar-nav me-auto d-flex flex-row mt-3 mt-lg-0">
+                {% if app.user %}
+                <li class="nav-item text-center ms-5 me-3 my-4">
+                    <div class="gerersescongesfont">
+                    <a class="nav-link active" aria-current="page" href="{{ path('app_gestionconges') }}">
                         <div>
                             <i class="fas fa-home fa-lg mb-1"></i>
                         </div>
-                        Home
+                        Gérer ses congés
                     </a>
+                    </div>
                 </li>
-                <li class="nav-item text-center me-3 my-4">
-                    <a class="nav-link" href="#!">
-                        Link
-                    </a>
-                </li>
-                <li class="nav-item text-center me-3 my-4">
-                    <a class="nav-link disabled" aria-disabled="true" href="#!">
 
-                        Disabled
+                <div class="planningfont">
+                <li class="nav-item text-center me-3 my-4">
+                    <a class="nav-link" href="{{ path('app_calendarindex') }}">
+                        Planning
                     </a>
                 </li>
-                    <!-- Dropdown menu -->
+                </div>
+                {% endif %}
+
+
+
+                <!-- Dropdown menu DRH -->
+                {% if is_granted("ROLE_DRH") %}
                 <li class="nav-item dropdown text-center me-3 my-4">
+                    <div class="panneaudrhfont">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Panneau DRH
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="#">Non défini</a></li>
+                            <li><a class="dropdown-item" href="#">Non défini</a></li>
+                            <li><a class="dropdown-item" href="#">Non défini</a></li>
+                        </ul>
+                </li>
+                {% endif %}
+
+
+                <!-- Dropdown menu administrateur -->
+                {% if is_granted("ROLE_ADMIN") %}
+                <li class="nav-item dropdown text-center me-3 my-4">
+                    <div class="panneauadminfont">
                     <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        Dropdown
+                        Panneau administrateur
                     </a>
                     <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="#">Action</a></li>
-                        <li><a class="dropdown-item" href="#">Another action</a></li>
+                        <li><a class="dropdown-item" href="{{ path('app_adminapp_dashboard') }}">Dashboard</a></li>
+                        <li><a class="dropdown-item" href="#">Non défini</a></li>
                         <li><hr class="dropdown-divider"></li>
-                        <li><a class="dropdown-item" href="#">Something else here</a></li>
+                        <li><a class="dropdown-item" href="{{ path('app_register') }}">Inscription</a></li>
                     </ul>
                 </li>
+                {% endif %}
 
+                {% if app.user %}
+                <div class="profilfont">
+                <li class="nav-item text-center me-3 my-4">
+                    <a class="nav-link" href="{{ path('app_profil') }}">
+                        Profil
+                    </a>
+                </li>
+                </div>
+                {% endif %}
+
+            </div>
+            </div>
             <!-- Right links -->
+            <div class="mx-500" style="width: 358px;">
 
-                    <button type="button" class="btn btn-primary me-3 my-4">
-                       Se connecter
+
+                {% if app.user %}
+
+                     <a href="{{ path('app_logout') }}" class="btn btn-secondary me-3 my-4" role="button">
+                        Se déconnecter ({{ app.user.username }})
+                    </a>
+
+                {%else %}
+
+                <a href="{{ path('app_login') }}" class="btn btn-secondary me-3 my-4" role="button">
+                        Se connecter
                     </button>
+                </a>
+                {% endif %}
 
-        </div>
+
+
+            </div>
         <!-- Collapsible wrapper -->
     </div>
     <!-- Container wrapper -->
