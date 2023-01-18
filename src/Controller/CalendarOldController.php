@@ -13,16 +13,16 @@ use Doctrine\ORM\EntityManagerInterface;
 
 
 /**
- * @Route("/calendar")
+ * @Route("/u/calendar")
  */
 class CalendarOldController extends AbstractController
 {
     /**
-     * @Route("/", name="app_calendarindex", methods={"GET"})
+     * @Route("/", name="app_testou", methods={"GET"})
      */
     public function index(CalendarRepository $calendarRepository): Response
     {
-        return $this->render('calendar/index.html.twig', [
+        return $this->render('calendar-old/index.html.twig', [
             'calendars' => $calendarRepository->findAll(),
         ]);
     }
@@ -40,10 +40,10 @@ class CalendarOldController extends AbstractController
             $entityManager->persist($calendar);
             $entityManager->flush();
 
-            return $this->redirectToRoute('calendar_index');
+            return $this->redirectToRoute('app_testou');
         }
 
-        return $this->render('calendar/new.html.twig', [
+        return $this->render('calendar-old/new.html.twig', [
             'calendar' => $calendar,
             'form' => $form->createView(),
         ]);
@@ -54,7 +54,7 @@ class CalendarOldController extends AbstractController
      */
     public function show(Calendar $calendar): Response
     {
-        return $this->render('calendar/show.html.twig', [
+        return $this->render('calendar-old/show.html.twig', [
             'calendar' => $calendar,
         ]);
     }
@@ -72,10 +72,10 @@ class CalendarOldController extends AbstractController
             $entityManager->persist($calendar);
             $entityManager->flush();
 
-            return $this->redirectToRoute('calendar_index');
+            return $this->redirectToRoute('app_testou');
         }
 
-        return $this->render('calendar/edit.html.twig', [
+        return $this->render('calendar-old/edit.html.twig', [
             'calendar' => $calendar,
             'form' => $form->createView(),
         ]);
@@ -92,6 +92,6 @@ class CalendarOldController extends AbstractController
             $entityManager->flush();
         }
 
-        return $this->redirectToRoute('calendar_index');
+        return $this->redirectToRoute('app_testou');
     }
 }

@@ -10,128 +10,130 @@
 <!-- Navbar -->
 
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <!-- Container wrapper -->
+
+    <!-- Container contenant toute la NavBar -->
     <div class="container-fluid ms-5">
-        <!-- Navbar brand -->
-
-                    <div class="acceuilfont" >
-                        <a class="navbar-brand" href="{{ path('homepage') }}">Congés</a>
-                     </div>
-
-        <!-- Toggle button -->
-                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-                       data-bs-target="#navbarSupportedContent" aria-controls="navbarNav" aria-expanded="false"
-                       aria-label="Toggle navigation">
-                        <span class="navbar-toggler-icon"></span>
-                    </button>
-
-        <!-- Collapsible wrapper -->
-                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <!-- Left links -->
-                        <div class="navbar-nav me-auto d-flex flex-row mt-3 mt-lg-0">
-
-                           {% if app.user %}
-
-                               <li class="nav-item text-center ms-5 me-3 my-4">
-                                    <div class="gerersescongesfont">
-                                        <a class="nav-link active" aria-current="page" href="{{ path('app_gestionconges') }}">
-                                            <div>
-                                                <i class="fas fa-home fa-lg mb-1"></i>
-                                            </div>
-                                            Gérer ses congés
-                                        </a>
-                                    </div>
-                               </li>
 
 
-                               <div class="planningfont">
-                                   <li class="nav-item text-center me-3 my-4">
-                                        <a class="nav-link" href="{{ path('app_fucking_calendrier') }}">
+    <!-- Titre de la NavBar -->
+        <div class="acceuilfont" >
+            <a class="navbar-brand" href="{{ path('homepage') }}">Congés</a>
+        </div>
+
+
+        <!-- Bouton du mode mobile -->
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+
+                        <!-- Option du bouton de navbar -->
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-1 ms-5 my-auto ">
+
+
+                    <!-- Si user est connecté alors il pourra voir -->
+                    {% if app.user %}
+
+                        <li class="nav-item ms-0 me-5 my-3">
+                            <div class="gerersescongesfont">
+                                <a class="nav-link" aria-current="page" href="{{ path('app_gestionconges') }}">
+                                    Gérer ses congés
+                                </a>
+                            </div>
+                        </li>
+
+                        <li class="nav-item">
+                            <li class="nav-item ms-0 me-5 my-3">
+                                <div class="planningfont">
+                                    <a class="nav-link" href="{{ path('app_fucking_calendrier') }}">
                                         Planning
-                                        </a>
-                                   </li>
-                               </div>
-
-                           {% endif %}
-
-
-
-                <!-- Dropdown menu DRH -->
-                            {% if is_granted("ROLE_DRH") %}
-                                <li class="nav-item dropdown text-center me-3 my-4">
-                                    <div class="panneaudrhfont">
-                                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                            Panneau DRH
-                                        </a>
-                                        <ul class="dropdown-menu">
-                                            <li><a class="dropdown-item" href="#">Non défini</a></li>
-                                            <li><a class="dropdown-item" href="#">Non défini</a></li>
-                                            <li><a class="dropdown-item" href="#">Non défini</a></li>
-                                        </ul>
-                                    </div>
-                                </li>
-                            {% endif %}
-
-
-                <!-- Dropdown menu administrateur -->
-                            {% if is_granted("ROLE_ADMIN") %}
-                                <li class="nav-item dropdown text-center me-3 my-4">
-                                    <div class="panneauadminfont">
-                                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                            Panneau administrateur
-                                        </a>
-                                        <ul class="dropdown-menu">
-                                            <li><a class="dropdown-item" href="{{ path('app_adminapp_dashboard') }}">Dashboard</a></li>
-                                            <li><a class="dropdown-item" href="#">Non défini</a></li>
-                                            <li><hr class="dropdown-divider"></li>
-                                            <li><a class="dropdown-item" href="{{ path('app_register') }}">Inscription</a></li>
-                                        </ul>
-                                    </div>
-                                </li>
-                            {% endif %}
-
-                            {% if app.user %}
-                                <div class="profilfont">
-                                    <li class="nav-item text-center me-3 my-4">
-                                        <a class="nav-link" href="{{ path('app_profil') }}">
-                                            Profil
-                                        </a>
-                                    </li>
+                                    </a>
                                 </div>
-                            {% endif %}
+                            </li>
+                        </li>
 
-                        </div>
+                    {% endif %}
 
 
+                    <!-- Dropdown menu DRH - Si user a le role DRH alors il pourra voir -->
+                    {% if is_granted("ROLE_DRH") %}
 
-
-            <!-- Right links -->
-                        <div class="mx-500" style="width: 358px;">
-                            {% if app.user %}
-
-                                <a href="{{ path('app_logout') }}" class="btn btn-secondary me-3 my-4" role="button">
-                                    Se déconnecter ({{ app.user.username }})
+                        <li class="nav-item dropdown ms-0 me-5 my-3">
+                            <div class="panneaudrhfont">
+                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    Panneau DRH
                                 </a>
+                                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                    <li><a class="dropdown-item" href="#">Non défini</a></li>
+                                    <li><a class="dropdown-item" href="#">Non défini</a></li>
+                                    <li><a class="dropdown-item" href="#">Non défini</a></li>
+                                </ul>
+                            </div>
+                        </li>
 
-                            {%else %}
+                    {% endif %}
 
-                                <a href="{{ path('app_login') }}" class="btn btn-secondary me-3 my-4" role="button">
-                                    Se connecter
+
+                    <!-- Dropdown menu DRH - Si user a le role admin alors il pourra voir -->
+                    {% if is_granted("ROLE_ADMIN") %}
+
+                        <li class="nav-item dropdown ms-0 me-5 my-3">
+                            <div class="panneauadminfont">
+                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    Panneau admin
                                 </a>
+                                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                    <li><a class="dropdown-item" href="{{ path('app_adminapp_dashboard') }}">Dashboard</a></li>
+                                    <li><a class="dropdown-item" href="#">Non défini</a></li>
+                                    <li><hr class="dropdown-divider"></li>
+                                    <li><a class="dropdown-item" href="{{ path('app_register') }}">Inscription</a></li>
+                                </ul>
+                            </div>
+                        </li>
 
-                            {% endif %}
-                        </div>
-
-                    </div>
+                    {% endif %}
 
 
-        <!-- Collapsible wrapper -->
+                    <!-- Si user est connecté alors il pourra voir -->
+                    {% if app.user %}
+
+                        <li class="nav-item ms-0 me-5 my-3">
+                            <div class="profilfont">
+                                <a class="nav-link" href="{{ path('app_profil') }}">
+                                    Profil
+                                </a>
+                            </div>
+                        </li>
+
+                    {% endif %}
+
+
+                    <!-- Connexion/deconnection si user est déconnecté/connecté -->
+
+                    {% if app.user %}
+
+                        <a href="{{ path('app_logout') }}" class="btn btn-secondary btn-pull-right rightcssbtn ms-0 me-auto my-auto" role="button">
+                            Se déconnecter ({{ app.user.username }})
+                        </a>
+
+                    {%else %}
+
+                        <a href="{{ path('app_login') }}" class="btn btn-secondary btn-pull-right rightcssbtn ms-0 me-auto my-auto" role="button">
+                            Se connecter
+                        </a>
+
+                    {% endif %}
+
+                </ul>
+
+            </div>
+
     </div>
-    <!-- Container wrapper -->
-</nav>
-<!-- Navbar -->
 
+</nav>
+
+</body>
 {% block body %}{% endblock %}
 {% block javascripts %}{{ encore_entry_script_tags('app') }}{% endblock %}
-</body>
 </html>

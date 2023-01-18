@@ -20,6 +20,9 @@ class RegistrationController extends AbstractController
      * @Route("admin/inscription", name="app_register")
      */
 
+    //todo: Faire un message succes creation de compte
+
+
     public function register(Request $request, UserPasswordHasherInterface $userPasswordHasher, UserAuthenticatorInterface $userAuthenticator, UserAuthentificatorAuthenticator $authenticator, EntityManagerInterface $entityManager): Response
     {
 

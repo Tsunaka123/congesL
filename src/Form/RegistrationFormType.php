@@ -69,6 +69,7 @@ class RegistrationFormType extends AbstractType
                 'choices' => [
                     'Utilisateur' => 'ROLE_USER',
                     'Valideur' => 'ROLE_VALIDATOR',
+                    'DRH' => 'ROLE_DRH',
                     'Administrateur' => 'ROLE_ADMIN',
                     'Super Administateur' => 'ROLE_SUPERADMIN',
                 ],

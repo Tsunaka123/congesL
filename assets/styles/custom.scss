@@ -1,13 +1,125 @@
 @import url('https://fonts.googleapis.com/css2?family=Russo+One&display=swap');
 
+
+/* Taille bouton grande page */
+
+
 body {
-  background-color: lightgray;
+  margin: 0px 0px;
+  padding: 0px;
 }
 
-.acceuilfont {
+
+.navbar-brand {
   font-family: 'Russo One', sans-serif;
+  font-size: 35px !important;
 }
 
-.btn {
-  padding: .55rem 1.5rem .45rem;
+
+.gerersescongesfont {
+  color: blueviolet !important;
+  font-size: 25px;
 }
+
+
+.planningfont {
+  color: white !important;
+  font-size: 25px;
+}
+
+
+.panneaudrhfont {
+  color: white !important;
+  font-size: 25px;
+}
+
+
+.panneauadminfont {
+  color: white !important;
+  font-size: 25px;
+}
+
+
+.profilfont {
+  color: white !important;
+  font-size: 25px;
+}
+
+
+
+
+/* option boutons grand écran */
+@media (min-width: 1742px){
+
+
+  .rightcssbtn {
+      position: absolute;
+      top: 28%;
+      right: 5%;
+    }
+  .btn {
+    font-size: 21px !important;
+  }
+
+
+
+
+  /* option petit écran */
+@media (max-width: 768px) {
+
+
+  body {
+    margin: 0px 0px;
+    padding: 0px;
+  }
+
+
+  .btn {
+    padding: .55rem 1.5rem .45rem;
+    margin: 0px 25px;
+  }
+
+
+  .gerersescongesfont {
+    position: absolute;
+    top: 25%;
+    right: 50%;
+    font-size: 15px !important;
+  }
+
+
+  .planningfont {
+    position: absolute;
+    top: 0%;
+    right: 50%;
+    font-size: 15px !important;
+  }
+
+
+  .panneaudrhfont {
+    position: absolute;
+    top: 0%;
+    right: 50%;
+    font-size: 15px !important;
+  }
+
+
+  .panneauadminfont {
+    position: absolute;
+    top: 0%;
+    right: 50%;
+    font-size: 15px !important;
+  }
+
+
+  .profilfont {
+    position: absolute;
+    top: 0%;
+    right: 50%;
+    font-size: 15px !important;
+  }
+
+
+}
+}
+

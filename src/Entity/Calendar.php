@@ -33,9 +33,6 @@ class Calendar
     #[ORM\Column(type: Types::TEXT)]
     private ?string $description = null;
 
-    #[ORM\Column]
-    private ?bool $all_day = null;
-
     #[ORM\Column(length: 7)]
     private ?string $background_color = null;
 
@@ -97,20 +94,7 @@ class Calendar
 
         return $this;
     }
-
-    public function getAllDay(): ?bool
-    {
-        return $this->all_day;
-    }
-
-    public function setAllDay(bool $all_day): self
-    {
-        $this->all_day = $all_day;
-
-        return $this;
-    }
-
-    public function getBackgroundColor(): ?string
+        public function getBackgroundColor(): ?string
     {
         return $this->background_color;
     }
