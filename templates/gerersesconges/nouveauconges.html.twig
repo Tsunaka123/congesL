@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Nouveau congé{% endblock %}
+
+{% block body %}
+    <h1>Enregistrer un nouveau congé</h1>
+
+    {{ include('gerersesconges/_form.html.twig') }}
+
+    <a href="{{ path('app_gerersesconges_voirsesconges') }}">Retour a la liste</a>
+{% endblock %}

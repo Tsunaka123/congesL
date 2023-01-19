@@ -2,7 +2,7 @@
 
 namespace App\EventSubscriber;
 
-use App\Repository\CalendarRepository;
+use App\Repository\GererSesCongesRepository;
 use CalendarBundle\CalendarEvents;
 use CalendarBundle\Entity\Event;
 use CalendarBundle\Event\CalendarEvent;
@@ -15,8 +15,8 @@ class CalendarSubscriber implements EventSubscriberInterface
     private $router;
 
     public function __construct(
-        CalendarRepository    $bookingRepository,
-        UrlGeneratorInterface $router
+        GererSesCongesRepository $bookingRepository,
+        UrlGeneratorInterface    $router
     ) {
         $this->bookingRepository = $bookingRepository;
         $this->router = $router;
@@ -29,11 +29,11 @@ class CalendarSubscriber implements EventSubscriberInterface
         ];
     }
 
-    public function onCalendarSetData(CalendarEvent $calendar)
+    public function onCalendarSetData(CalendarEvent $conges)
     {
-        $start = $calendar->getStart();
-        $end = $calendar->getEnd();
-        $filters = $calendar->getFilters();
+        $start = $conges->getStart();
+        $end = $conges->getEnd();
+        $filters = $conges->getFilters();
 
         // Modify the query to fit to your entity and needs
         // Change booking.beginAt by your start date property
@@ -47,7 +47,7 @@ class CalendarSubscriber implements EventSubscriberInterface
         ;
 
         foreach ($bookings as $booking) {
-            // this create the events with your data (here booking data) to fill calendar
+            // this create the events with your data (here booking data) to fill gerersesconges
             $bookingEvent = new Event(
                 $booking->getTitle(),
                 $booking->getBeginAt(),
@@ -72,8 +72,8 @@ class CalendarSubscriber implements EventSubscriberInterface
                 ])
             );
 
-            // finally, add the event to the CalendarEvent to fill the calendar
-            $calendar->addEvent($bookingEvent);
+            // finally, add the event to the CalendarEvent to fill the gerersesconges
+            $conges->addEvent($bookingEvent);
         }
     }
 }

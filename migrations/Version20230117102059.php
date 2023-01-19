@@ -20,12 +20,12 @@ final class Version20230117102059 extends AbstractMigration
     public function up(Schema $schema): void
     {
         // this up() migration is auto-generated, please modify it to your needs
-        $this->addSql('ALTER TABLE calendar DROP all_day');
+        $this->addSql('ALTER TABLE gerersesconges DROP all_day');
     }
 
     public function down(Schema $schema): void
     {
         // this down() migration is auto-generated, please modify it to your needs
-        $this->addSql('ALTER TABLE calendar ADD all_day TINYINT(1) NOT NULL');
+        $this->addSql('ALTER TABLE gerersesconges ADD all_day TINYINT(1) NOT NULL');
     }
 }

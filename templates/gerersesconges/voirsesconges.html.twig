@@ -1,0 +1,83 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Calendar index{% endblock %}
+
+{% block stylesheets %}
+    {{ encore_entry_link_tags('gerersesconges') }}
+{% endblock %}
+
+
+{% block body %}
+<html>
+
+<head>
+</head>
+
+<body>
+    <div class="container-fluid">
+        <div class="d-flex align-items-center justify-content-center" style="height: 150px">
+            <h1 class="tittle">Liste de vos congés :</h1>
+        </div>
+
+<div class="d-flex align-items-center justify-content-center" style="height: 500px">
+            <div class="table-responsive align-items-center justify-content-center" style="height: 500px">
+                <table class="table table-striped">
+                     <thead class="table-primary">
+                            <tr>
+                                <th>Type de congés</th>
+                                <th>Début</th>
+                                <th>Fin</th>
+                                <th>Description</th>
+                                <th>actions</th>
+                            </tr>
+                     </thead>
+                    <tbody>
+                        {% for conges in conges %}
+                            <tr>
+                                <div class="mx-auto">
+
+                                <td>{{ conges.title }}</td>
+                                <td>{{ conges.start ? conges.start|date('d-m-Y') : '' }}</td>
+                                <td>{{ conges.end ? conges.end|date('d-m-Y') : '' }}</td>
+                                <td>{{ conges.description }}</td>
+                                </div>
+                                <td>
+                                    <a href="{{ path('app_gerersesconges_detailsconges', {'id': conges.id}) }}" class="btn btn-muted" role="button">
+                                        Détails
+                                    </a>
+
+                                    <a href="{{ path('app_gerersesconges_modifierconges', {'id': conges.id}) }}" class="btn btn-danger" role="button">
+                                        Modifier
+                                    </a>
+
+                                </td>
+
+                            </tr>
+                        {% else %}
+                             <tr>
+                                <td colspan="10">Aucun résultats</td>
+                             </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+    </div>
+
+
+        <div class="d-flex align-items-center justify-content-center" style="height: 150px">
+
+            <a href="{{ path('app_gerersesconges_nouveauconges') }}" class="btn btn-primary" role="button">
+                Nouveau congé
+            </a>
+        </div>
+
+    </div>
+
+</body>
+
+</html>
+{% endblock %}
+
+{% block javascripts %}
+    {{ encore_entry_script_tags('gerersesconges') }}
+{% endblock %}

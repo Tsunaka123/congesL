@@ -12,12 +12,12 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
 
     <!-- Container contenant toute la NavBar -->
-    <div class="container-fluid ms-5">
+    <div class="container-fluid">
 
 
     <!-- Titre de la NavBar -->
         <div class="acceuilfont" >
-            <a class="navbar-brand" href="{{ path('homepage') }}">Congés</a>
+            <a class="navbar-brand" href="{{ path('app_pageacceuil') }}">Congés</a>
         </div>
 
 
@@ -35,11 +35,17 @@
                     <!-- Si user est connecté alors il pourra voir -->
                     {% if app.user %}
 
-                        <li class="nav-item ms-0 me-5 my-3">
+                        <li class="nav-item dropdown ms-0 me-5 my-3">
                             <div class="gerersescongesfont">
-                                <a class="nav-link" aria-current="page" href="{{ path('app_gestionconges') }}">
+                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                     Gérer ses congés
                                 </a>
+
+                                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                    <li><a class="dropdown-item" href="{{ path('app_gerersesconges_voirsesconges') }}">Voir ses congés</a></li>
+                                    <li><a class="dropdown-item" href="{{ path('app_gerersesconges_nouveauconges') }}">Nouveau congés</a></li>
+                                    <li><a class="dropdown-item" href="#">Non défini</a></li>
+                                </ul>
                             </div>
                         </li>
 
@@ -64,6 +70,7 @@
                                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                     Panneau DRH
                                 </a>
+
                                 <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                                     <li><a class="dropdown-item" href="#">Non défini</a></li>
                                     <li><a class="dropdown-item" href="#">Non défini</a></li>
@@ -83,6 +90,7 @@
                                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                     Panneau admin
                                 </a>
+
                                 <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                                     <li><a class="dropdown-item" href="{{ path('app_adminapp_dashboard') }}">Dashboard</a></li>
                                     <li><a class="dropdown-item" href="#">Non défini</a></li>
@@ -113,13 +121,13 @@
 
                     {% if app.user %}
 
-                        <a href="{{ path('app_logout') }}" class="btn btn-secondary btn-pull-right rightcssbtn ms-0 me-auto my-auto" role="button">
+                        <a href="{{ path('app_logout') }}" class="btn btn-secondary btn-pull-right rightdcnbtn ms-0 me-auto my-auto" role="button">
                             Se déconnecter ({{ app.user.username }})
                         </a>
 
                     {%else %}
 
-                        <a href="{{ path('app_login') }}" class="btn btn-secondary btn-pull-right rightcssbtn ms-0 me-auto my-auto" role="button">
+                        <a href="{{ path('app_connexion') }}" class="btn btn-secondary btn-pull-right rightlogbtn ms-0 me-auto my-auto" role="button">
                             Se connecter
                         </a>
 
