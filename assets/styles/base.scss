@@ -33,6 +33,11 @@ body {
   font-size: 18px;
 }
 
+.panneauvalideur {
+  color: white !important;
+  font-size: 18px;
+}
+
 
 .panneauadminfont {
   color: white !important;
@@ -102,6 +107,13 @@ body {
 
 
   .panneaudrhfont {
+    position: absolute;
+    top: 0%;
+    right: 50%;
+    font-size: 15px !important;
+  }
+
+  .panneauvalideur {
     position: absolute;
     top: 0%;
     right: 50%;

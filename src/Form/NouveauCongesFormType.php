@@ -2,7 +2,8 @@
 
 namespace App\Form;
 
-use App\Entity\Conges;
+use App\Entity\CongesDemande;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ColorType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
@@ -14,6 +15,14 @@ class NouveauCongesFormType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
+            ->add('id_beneficiaire', ChoiceType::class, [
+                'label' => 'Pour qui est le congés  ? :',
+                'choices' => [
+                    'Non défini' => '',
+                ],
+                'expanded' => false,
+                'multiple' => false,
+            ])
             ->add('title')
             ->add('start', DateTimeType::class, [
                 'date_widget' => 'single_text'
@@ -22,16 +31,13 @@ class NouveauCongesFormType extends AbstractType
                 'date_widget' => 'single_text'
             ])
             ->add('description')
-            ->add('background_color', ColorType::class)
-            ->add('border_color', ColorType::class)
-            ->add('text_color', ColorType::class)
         ;
     }
 
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'data_class' => Conges::class,
+            'data_class' => CongesDemande::class,
         ]);
     }
 }

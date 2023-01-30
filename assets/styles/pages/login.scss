@@ -1,0 +1,42 @@
+@import "assets/styles/app";
+@import "../../../node_modules/bootstrap/scss/bootstrap";
+
+@import url('https://fonts.googleapis.com/css2?family=Russo+One&display=swap');
+
+
+body {
+  margin: 0px 0px;
+  padding: 0px;
+  background-color: white;
+}
+
+.alignitem{
+  display: flex;
+  align-items: center;
+}
+.tittleform {
+  font-family: 'Russo One', sans-serif;
+  font-size: 38px;
+}
+
+.loginform {
+
+}
+
+.remembermeform {
+
+
+}
+
+.loginsubmitform {
+
+}
+
+@media (max-width: 768px) {
+
+  .tittleform {
+    font-family: 'Russo One', sans-serif;
+    font-size: 25px;
+  }
+
+}

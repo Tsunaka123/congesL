@@ -14,6 +14,12 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 #[UniqueEntity(fields: ['username'], message: 'There is already an account with this username')]
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
+    /**
+     * @ORM\OneToOne(targetEntity="App\Entity\Delegation", cascade={"persist"})
+     */
+    private $delegation;
+
+
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
@@ -50,6 +56,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function eraseCredentials()
     {
 
+    }
+
+    public function getDelegation(): ?int
+    {
+        return $this->delegation;
+    }
+
+    public function setDelegation(array $delegation): self
+    {
+        $this->delegation = $delegation;
+
+        return $this;
     }
 
 

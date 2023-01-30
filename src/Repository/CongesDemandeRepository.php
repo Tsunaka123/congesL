@@ -2,26 +2,26 @@
 
 namespace App\Repository;
 
-use App\Entity\Conges;
+use App\Entity\CongesDemande;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
- * @extends ServiceEntityRepository<Conges>
+ * @extends ServiceEntityRepository<CongesDemande>
  *
- * @method Conges|null find($id, $lockMode = null, $lockVersion = null)
- * @method Conges|null findOneBy(array $criteria, array $orderBy = null)
- * @method Conges[]    findAll()
- * @method Conges[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method CongesDemande|null find($id, $lockMode = null, $lockVersion = null)
+ * @method CongesDemande|null findOneBy(array $criteria, array $orderBy = null)
+ * @method CongesDemande[]    findAll()
+ * @method CongesDemande[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class GererSesCongesRepository extends ServiceEntityRepository
+class CongesDemandeRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, Conges::class);
+        parent::__construct($registry, CongesDemande::class);
     }
 
-    public function save(Conges $entity, bool $flush = false): void
+    public function save(CongesDemande $entity, bool $flush = false): void
     {
         $this->getEntityManager()->persist($entity);
 
@@ -30,7 +30,7 @@ class GererSesCongesRepository extends ServiceEntityRepository
         }
     }
 
-    public function remove(Conges $entity, bool $flush = false): void
+    public function remove(CongesDemande $entity, bool $flush = false): void
     {
         $this->getEntityManager()->remove($entity);
 
@@ -40,7 +40,7 @@ class GererSesCongesRepository extends ServiceEntityRepository
     }
 
 //    /**
-//     * @return Conges[] Returns an array of Conges objects
+//     * @return CongesDemande[] Returns an array of CongesDemande objects
 //     */
 //    public function findByExampleField($value): array
 //    {
@@ -54,7 +54,7 @@ class GererSesCongesRepository extends ServiceEntityRepository
 //        ;
 //    }
 
-//    public function findOneBySomeField($value): ?Conges
+//    public function findOneBySomeField($value): ?CongesDemande
 //    {
 //        return $this->createQueryBuilder('b')
 //            ->andWhere('b.exampleField = :val')

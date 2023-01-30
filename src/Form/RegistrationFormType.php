@@ -2,7 +2,6 @@
 
 namespace App\Form;
 
-use App\Entity\Roles;
 use App\Entity\User;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\CallbackTransformer;
@@ -22,6 +21,7 @@ class RegistrationFormType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
+
         $builder
             ->add('lastName', TextType::class, [
                 'label' => 'Nom de famille : ',
@@ -71,7 +71,6 @@ class RegistrationFormType extends AbstractType
                     'Valideur' => 'ROLE_VALIDATOR',
                     'DRH' => 'ROLE_DRH',
                     'Administrateur' => 'ROLE_ADMIN',
-                    'Super Administateur' => 'ROLE_SUPERADMIN',
                 ],
                 'expanded' => false,
                 'multiple' => false,

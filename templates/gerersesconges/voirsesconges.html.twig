@@ -16,7 +16,7 @@
 <body>
     <div class="container-fluid">
         <div class="d-flex align-items-center justify-content-center" style="height: 150px">
-            <h1 class="tittle">Liste de vos congés :</h1>
+            <h1 class="tittle">Vos nouvelles demande de congés :</h1>
         </div>
 
 <div class="d-flex align-items-center justify-content-center" style="height: 500px">
@@ -32,21 +32,21 @@
                             </tr>
                      </thead>
                     <tbody>
-                        {% for conges in conges %}
+                        {% for congesdemande in congesdemande %}
                             <tr>
                                 <div class="mx-auto">
 
-                                <td>{{ conges.title }}</td>
-                                <td>{{ conges.start ? conges.start|date('d-m-Y') : '' }}</td>
-                                <td>{{ conges.end ? conges.end|date('d-m-Y') : '' }}</td>
-                                <td>{{ conges.description }}</td>
+                                <td>{{ congesdemande.title }}</td>
+                                <td>{{ congesdemande.start ? conges.start|date('d-m-Y') : '' }}</td>
+                                <td>{{ congesdemande.end ? conges.end|date('d-m-Y') : '' }}</td>
+                                <td>{{ congesdemande.description }}</td>
                                 </div>
                                 <td>
-                                    <a href="{{ path('app_gerersesconges_detailsconges', {'id': conges.id}) }}" class="btn btn-muted" role="button">
+                                    <a href="{{ path('app_gerersesconges_detailsconges', {'id': congesdemande.id}) }}" class="btn btn-muted" role="button">
                                         Détails
                                     </a>
 
-                                    <a href="{{ path('app_gerersesconges_modifierconges', {'id': conges.id}) }}" class="btn btn-danger" role="button">
+                                    <a href="{{ path('app_gerersesconges_modifierconges', {'id': congesdemande.id}) }}" class="btn btn-danger" role="button">
                                         Modifier
                                     </a>
 
@@ -55,7 +55,7 @@
                             </tr>
                         {% else %}
                              <tr>
-                                <td colspan="10">Aucun résultats</td>
+                                <td colspan="10">Aucune nouvelle demande</td>
                              </tr>
                         {% endfor %}
                     </tbody>
@@ -67,7 +67,7 @@
         <div class="d-flex align-items-center justify-content-center" style="height: 150px">
 
             <a href="{{ path('app_gerersesconges_nouveauconges') }}" class="btn btn-primary" role="button">
-                Nouveau congé
+                Nouvelle demande de congés
             </a>
         </div>
 

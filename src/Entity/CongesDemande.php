@@ -2,7 +2,7 @@
 
 namespace App\Entity;
 
-use App\Repository\GererSesCongesRepository;
+use App\Repository\CongesDemandeRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
@@ -10,9 +10,9 @@ use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
-#[ORM\Entity(repositoryClass: GererSesCongesRepository::class)]
+#[ORM\Entity(repositoryClass: CongesDemandeRepository::class)]
 
-class Conges
+class CongesDemande
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -30,17 +30,16 @@ class Conges
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     private ?\DateTimeInterface $end = null;
 
-    #[ORM\Column(type: Types::TEXT)]
+    #[ORM\Column]
     private ?string $description = null;
 
-    #[ORM\Column(length: 7)]
-    private ?string $background_color = null;
+    #[ORM\Column]
+    private ?int $id_beneficiaire = null;
 
-    #[ORM\Column(length: 7)]
-    private ?string $border_color = null;
+    #[ORM\Column]
+    private ?int $id_poseur = null;
 
-    #[ORM\Column(length: 7)]
-    private ?string $text_color = null;
+
 
     public function getId(): ?int
     {
@@ -94,39 +93,37 @@ class Conges
 
         return $this;
     }
-        public function getBackgroundColor(): ?string
+
+    public function getIdBeneficiaire(): ?int
     {
-        return $this->background_color;
+        return $this->id_beneficiaire;
     }
 
-    public function setBackgroundColor(string $background_color): self
+    public function getIdPoseur(): ?int
     {
-        $this->background_color = $background_color;
+        return $this->id_poseur;
+    }
+
+    public function setIBeneficiaire(int $id_beneficiaire): self
+    {
+        $this->id_beneficiaire = $id_beneficiaire;
 
         return $this;
     }
 
-    public function getBorderColor(): ?string
-    {
-        return $this->border_color;
-    }
 
-    public function setBorderColor(string $border_color): self
+    public function setIdPoseur(int $id_poseur): self
     {
-        $this->border_color = $border_color;
+        $this->id_poseur = $id_poseur;
 
         return $this;
     }
 
-    public function getTextColor(): ?string
+    public function setIdBeneficiaire(int $id_beneficiaire): self
     {
-        return $this->text_color;
-    }
-
-    public function setTextColor(string $text_color): self
-    {
-        $this->text_color = $text_color;
+        $this->id_beneficiaire = $id_beneficiaire;
 
         return $this;
     }
+
 }

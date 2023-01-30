@@ -3,7 +3,7 @@
 {% block title %}Calendar{% endblock %}
 
 {% block body %}
-    <h1>Congé {{ conges.id }}</h1>
+    <h1>Congé</h1>
 
 
     <table class="table">
@@ -18,11 +18,11 @@
         </tr>
         <tr>
             <th>Début</th>
-            <td>{{ conges.start ? Conges.start|date('d-m-Y') : '' }}</td>
+            <td>{{ conges.start ? conges.start|date('d-m-Y') : '' }}</td>
         </tr>
         <tr>
             <th>Fin</th>
-            <td>{{ conges.end ? Conges.end|date('d-m-Y') : '' }}</td>
+            <td>{{ conges.end ? conges.end|date('d-m-Y') : '' }}</td>
         </tr>
         <tr>
             <th>Description</th>
@@ -45,7 +45,7 @@
 
     <a href="{{ path('app_gerersesconges_voirsesconges') }}">Retourner a la liste</a>
 
-    <a href="{{ path('app_gerersesconges_modifierconges', {'id': calendar.id}) }}">Modifier</a>
+    <a href="{{ path('app_gerersesconges_modifierconges', {'id': conges.id}) }}">Modifier</a>
 
     {{ include('gerersesconges/_delete_form.html.twig') }}
 {% endblock %}
