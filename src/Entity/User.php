@@ -2,86 +2,147 @@
 
 namespace App\Entity;
 
-use App\Repository\UserRepository;
+use App\Repository\UtilisateurRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use phpDocumentor\Reflection\DocBlock\Tags\TagWithType;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
-use Symfony\Component\Validator\Constraints as Assert;
-use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
-#[UniqueEntity('email', 'username')]
-#[ORM\Entity(repositoryClass: UserRepository::class)]
-#[UniqueEntity(fields: ['username'], message: 'There is already an account with this username')]
+#[UniqueEntity('mailU', 'loginU')]
+#[ORM\Entity(repositoryClass: UtilisateurRepository::class)]
+#[UniqueEntity(fields: ['loginU'], message: 'There is already an account with this username')]
+
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
-    /**
-     * @ORM\OneToOne(targetEntity="App\Entity\Delegation", cascade={"persist"})
-     */
-    private $delegation;
-
-
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column]
-    private array $roles = [];
-
-    #[ORM\Column(length: 25)]
-    #[Assert\NotBlank]
-    #[Assert\Length(min: 2, max: 25)]
-    private ?string $firstName = null;
-
-    #[ORM\Column(length: 25)]
-    #[Assert\NotBlank]
-    #[Assert\Length(min: 2, max: 25)]
-    private ?string $lastName = null;
+    #[ORM\Column(length: 50)]
+    private ?string $nomU = null;
 
     #[ORM\Column(length: 50)]
-    #[Assert\Email]
-    #[Assert\NotBlank]
-    #[Assert\Length(min: 2, max: 50)]
-    private ?string $email = null;
+    private ?string $pnomU = null;
 
-    #[ORM\Column(length: 25, unique: true)]
-    #[Assert\NotBlank]
-    #[Assert\Length(min: 2, max: 25)]
-    private ?string $username = null;
+    #[ORM\Column(length: 70)]
+    private ?string $loginU = null;
 
-    #[ORM\Column]
-    #[Assert\Length(min: 2, max: 250)]
-    private ?string $password = null;
+    #[ORM\Column(length: 150)]
+    private ?string $pwdU = null;
+
+    #[ORM\Column(length: 100)]
+    private ?string $mailU = null;
+
+    #[ORM\Column(nullable: false)]
+    private array $roles = [];
+
+    #[ORM\Column(nullable: true)]
+    private array $idServiceU;
+
+    private Collection $idServiceFromForm;
+
+    #[ORM\Column(type: Types::TEXT, nullable: true)]
+    private ?string $commentaireU = null;
+
+    #[ORM\OneToMany(targetEntity: Delegation::class, mappedBy: "idUserDelegant")]
+    private Collection $delegations;
+
 
     public function eraseCredentials()
     {
-
     }
 
-    public function getDelegation(): ?int
+    public function __construct()
     {
-        return $this->delegation;
+        $this->delegations = new ArrayCollection();
+        $this->idServiceFromForm = new ArrayCollection();
+
     }
-
-    public function setDelegation(array $delegation): self
-    {
-        $this->delegation = $delegation;
-
-        return $this;
-    }
-
 
     public function getId(): ?int
     {
         return $this->id;
     }
 
-
     public function getUserIdentifier(): string
     {
-        return (string)$this->username;
+        return (string)$this->loginU;
+    }
+    public function getNomU(): ?string
+    {
+        return $this->nomU;
     }
 
+    public function setNomU(string $nomU): self
+    {
+        $this->nomU = $nomU;
+
+        return $this;
+    }
+
+    public function getPnomU(): ?string
+    {
+        return $this->pnomU;
+    }
+
+    public function setPnomU(string $pnomU): self
+    {
+        $this->pnomU = $pnomU;
+
+        return $this;
+    }
+
+    public function getLoginU(): ?string
+    {
+        return $this->loginU;
+    }
+
+    public function setLoginU(string $loginU): self
+    {
+        $this->loginU = $loginU;
+
+        return $this;
+    }
+
+    public function getPassword(): ?string
+    {
+        return $this->pwdU;
+
+    }
+
+    public function setPassword(string $pwdU): self
+    {
+        $this->pwdU = $pwdU;
+
+        return $this;
+    }
+
+    public function getPlainPassword(): ?string
+    {
+        return $this->plainPassword;
+    }
+
+    public function setPlainPassword(?string $plainPassword): void
+    {
+        $this->plainPassword = $plainPassword;
+    }
+
+    public function getMailU(): ?string
+    {
+        return $this->mailU;
+    }
+
+    public function setMailU(string $mailU): self
+    {
+        $this->mailU = $mailU;
+
+        return $this;
+    }
 
     public function getRoles(): array
     {
@@ -99,79 +160,45 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-
-    public function getFirstName(): ?string
+    public function getIdServiceU(): array
     {
-        return $this->firstName;
+        return $this->idServiceU;
     }
 
-    public function setFirstName(string $firstName): self
+    public function setIdServiceU(array $idServiceU): self
     {
-        $this->firstName = $firstName;
+        $this->idServiceU = $idServiceU;
 
         return $this;
     }
 
-
-    public function getLastName(): ?string
+    public function getIdServiceFromForm(): ArrayCollection
     {
-        return $this->lastName;
+        return $this->idServiceFromForm;
     }
 
-    public function setLastName(string $lastName): self
+    public function setIdServiceFromForm(ArrayCollection $idServiceFromForm): self
     {
-        $this->lastName = $lastName;
+        $this->idServiceFromForm = $idServiceFromForm;
 
         return $this;
     }
 
-
-    public function getEmail(): ?string
+    public function getCommentaireU(): ?string
     {
-        return $this->email;
+        return $this->commentaireU;
     }
 
-    public function setEmail(string $email): self
+    public function setCommentaireU(?string $commentaireU): self
     {
-        $this->email = $email;
+        $this->commentaireU = $commentaireU;
 
         return $this;
     }
 
-
-    public function getUsername(): ?string
+    public function getDelegations(): ArrayCollection
     {
-        return $this->username;
+        return $this->delegations;
     }
 
-    public function setUsername(string $username): self
-    {
-        $this->username = $username;
-
-        return $this;
-    }
-
-
-    public function getPassword(): string
-    {
-        return $this->password;
-    }
-
-    public function setPassword(string $password): self
-    {
-        $this->password = $password;
-
-        return $this;
-    }
-
-
-    public function getPlainPassword(): ?string
-    {
-        return $this->plainPassword;
-    }
-
-    public function setPlainPassword(?string $plainPassword): void
-    {
-        $this->plainPassword = $plainPassword;
-    }
 }

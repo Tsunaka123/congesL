@@ -136,7 +136,7 @@
                     {% if app.user %}
 
                         <a href="{{ path('app_logout') }}" class="btn btn-secondary btn-pull-right rightdcnbtn ms-0 me-auto my-auto" role="button">
-                            Se déconnecter ({{ app.user.username }})
+                            Se déconnecter ({{ app.user.loginU }})
                         </a>
 
                     {%else %}

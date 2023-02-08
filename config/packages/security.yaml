@@ -5,10 +5,10 @@ security:
     # https://symfony.com/doc/current/security.html#loading-the-user-the-user-provider
     providers:
         # used to reload user from session & other features (e.g. switch_user)
-        app_user_provider:
+        app_utilisateur_provider:
             entity:
                 class: App\Entity\User
-                property: username
+                property: loginU
         # used to reload user from session & other features (e.g. switch_user)
         # used to reload user from session & other features (e.g. switch_user)
     firewalls:
@@ -17,8 +17,7 @@ security:
             security: false
         main:
             lazy: true
-            provider: app_user_provider
-            custom_authenticator: App\Security\UserAuthentificatorAuthenticator
+            provider: app_utilisateur_provider
             remember_me:
                 secret: '%kernel.secret%' # required
                 lifetime: 604800
@@ -27,6 +26,7 @@ security:
             logout:
                 path: /logout
                 target: /connexion
+            custom_authenticator: App\Security\UserAuthentificator
                 # where to redirect after logout
                 # target: app_any_route
 

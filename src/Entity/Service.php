@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\ServiceRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: ServiceRepository::class)]
@@ -11,7 +13,7 @@ class Service
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
-    private ?int $idService = null;
+    private ?int $id = null;
 
     #[ORM\Column(length: 100)]
     private ?string $libService = null;
@@ -31,9 +33,14 @@ class Service
     #[ORM\Column]
     private ?int $anneeCourante = null;
 
+
+    public function __construct()
+    {
+    }
+
     public function getId(): ?int
     {
-        return $this->idService;
+        return $this->id;
     }
 
     public function getLibService(): ?string
@@ -107,4 +114,6 @@ class Service
 
         return $this;
     }
+
+
 }

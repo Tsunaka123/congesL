@@ -2,7 +2,10 @@
 
 namespace App\Form;
 
+use App\Entity\Service;
 use App\Entity\User;
+use Doctrine\ORM\EntityRepository;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\CallbackTransformer;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
@@ -10,6 +13,7 @@ use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 use Symfony\Component\Form\Extension\Core\Type;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -19,26 +23,25 @@ use Symfony\Component\Validator\Constraints\NotBlank;
 
 class RegistrationFormType extends AbstractType
 {
-    public function buildForm(FormBuilderInterface $builder, array $options): void
+    public function buildForm(FormBuilderInterface $builder, array $options)
     {
-
         $builder
-            ->add('lastName', TextType::class, [
+            ->add('nomU', TextType::class, [
                 'label' => 'Nom de famille : ',
                 'mapped' => true,
             ])
 
-            ->add('firstName', TextType::class, [
+            ->add('pnomU', TextType::class, [
                 'label' => 'Prénom : ',
                 'mapped' => true,
             ])
 
-            ->add('email', EmailType::class, [
+            ->add('mailU', EmailType::class, [
                 'label' => 'Email : ',
                 'mapped' => true,
             ])
 
-            ->add('username', TextType::class, [
+            ->add('loginU', TextType::class, [
                 'label' => 'Identifiant de connexion : ',
                 'mapped' => true,
             ])
@@ -67,13 +70,32 @@ class RegistrationFormType extends AbstractType
             ->add('roles', ChoiceType::class, [
                 'label' => 'Role :',
                 'choices' => [
-                    'Utilisateur' => 'ROLE_USER',
+                    'User' => 'ROLE_USER',
                     'Valideur' => 'ROLE_VALIDATOR',
                     'DRH' => 'ROLE_DRH',
                     'Administrateur' => 'ROLE_ADMIN',
+                    'super' => 'ROLE_SUPERADMIN',
                 ],
                 'expanded' => false,
+
                 'multiple' => false,
+            ])
+
+            ->add('idServiceFromForm', EntityType::class, [
+                'class' => Service::class,
+                'label' => 'Choisir le service : ',
+                'choice_label' => 'libService',
+                'multiple' => true,
+                'expanded' => true,
+        ])
+
+            ->add('commentaireU', TextareaType::class, [
+                'label' => 'Commentaire',
+                'required' => false,
+                'attr' => [
+                    'rows' => 5,
+                    'placeholder' => 'Entrez votre commentaire ici...',
+                ],
             ])
 
         ;
@@ -83,7 +105,9 @@ class RegistrationFormType extends AbstractType
                 fn ($rolesAsArray) => count($rolesAsArray) ? $rolesAsArray[0]: null,
                 fn ($rolesAsString) => [$rolesAsString]
             ));
+
     }
+
 
     public function configureOptions(OptionsResolver $resolver): void
     {

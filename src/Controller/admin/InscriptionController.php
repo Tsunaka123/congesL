@@ -2,10 +2,14 @@
 
 namespace App\Controller\admin;
 
+use App\Entity\Service;
 use App\Entity\User;
 use App\Form\RegistrationFormType;
-use App\Security\UserAuthentificatorAuthenticator;
+use App\Repository\ServiceRepository;
+use App\Security\UserAuthentificator;
 use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\Persistence\ManagerRegistry;
+use Monolog\Handler\Curl\Util;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -22,23 +26,35 @@ class InscriptionController extends AbstractController
     //todo: Faire un message succes creation de compte
 
 
-    public function register(Request $request, UserPasswordHasherInterface $userPasswordHasher, UserAuthenticatorInterface $userAuthenticator, UserAuthentificatorAuthenticator $authenticator, EntityManagerInterface $entityManager): Response
+    public function register(Request $request, UserPasswordHasherInterface $userPasswordHasher, UserAuthenticatorInterface $userAuthenticator, UserAuthentificator $authenticator, EntityManagerInterface $entityManager): Response
     {
-
-        $user = new User();
-        $form = $this->createForm(RegistrationFormType::class, $user);
+        $utilisateur = new User();
+        $form = $this->createForm(RegistrationFormType::class, $utilisateur);
         $form->handleRequest($request);
 
+        dump($utilisateur);
         if ($form->isSubmitted() && $form->isValid()) {
+
+
+            $data = $form->get('idServiceFromForm')->getData();
+            dump($data);
+
+            foreach ($data as $item) {
+                $idf[] = $item->getId();
+            }
+            dump($idf);
+
+            $utilisateur->setIdServiceU([$idf]);
+            dump($utilisateur);
             // encode the plain password
-            $user->setPassword(
+            $utilisateur->setPassword(
                 $userPasswordHasher->hashPassword(
-                    $user,
+                    $utilisateur,
                     $form->get('plainPassword')->getData()
                 )
             );
-
-            $entityManager->persist($user);
+            dump($utilisateur);
+            $entityManager->persist($utilisateur);
             $entityManager->flush();
 +
             $this->addFlash(
@@ -48,18 +64,14 @@ class InscriptionController extends AbstractController
 
             return $this->redirectToRoute('app_register');
 
-
-            //Authentification possible apres création de compte, déconnecté pour l'usage de ce site
-            //return $userAuthenticator->authenticateUser(
-            //    $user,
-            //    $authenticator,
-            //    $request
-            //);
-
         }
 
         return $this->render('admin/inscription.html.twig', [
             'registrationForm' => $form->createView(),
         ]);
     }
+
+
 }
+
+

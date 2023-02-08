@@ -15,9 +15,9 @@ class Delegation
     private ?int $idUserDelegue = null;
 
     #[ORM\Id]
-    #[ORM\ManyToOne(targetEntity:Utilisateur::class, inversedBy: "delegations")]
+    #[ORM\ManyToOne(targetEntity:User::class, inversedBy: "delegations")]
     #[ORM\JoinColumn(nullable:true)]
-    private Utilisateur $idUserDelegant;
+    private User $idUserDelegant;
 
 
     public function __construct()
@@ -36,12 +36,12 @@ class Delegation
         return $this;
     }
 
-    public function getIdUserDelegant(): ?Utilisateur
+    public function getIdUserDelegant(): ?User
     {
         return $this->idUserDelegant;
     }
 
-    public function setIdUserDelegant(?Utilisateur $idUserDelegant): self
+    public function setIdUserDelegant(?User $idUserDelegant): self
     {
         $this->idUserDelegant = $idUserDelegant;
 
