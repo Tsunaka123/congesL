@@ -3,13 +3,18 @@
 namespace App\Entity;
 
 use App\Repository\CongesDemandeRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Cache\Adapter\ArrayAdapter;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
+
+#[ORM\Table(name: 'CongesDemande')]
 #[ORM\Entity(repositoryClass: CongesDemandeRepository::class)]
 
 class CongesDemande
@@ -19,109 +24,180 @@ class CongesDemande
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(length: 100)]
-    #[Assert\NotBlank]
-    #[Assert\Length(min: 2, max: 100)]
-    private ?string $title= null;
+    #[ORM\Column(length: 100, nullable:true)]
+    #[Assert\Length(max: 100)]
+    private ?string $typeDeConges= null;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
-    private ?\DateTimeInterface $start = null;
+    private ?\DateTimeInterface $dateDebut = null;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
-    private ?\DateTimeInterface $end = null;
+    private ?\DateTimeInterface $dateFin = null;
+
+    #[ORM\Column(nullable:true)]
+    private ?string $informationsComplementaire = null;
 
     #[ORM\Column]
-    private ?string $description = null;
+    private ?int $idBeneficiaire = null;
 
     #[ORM\Column]
-    private ?int $id_beneficiaire = null;
+    private ?string $nomPrenomBeneficiaire = null;
 
     #[ORM\Column]
-    private ?int $id_poseur = null;
+    private ?int $idPoseur = null;
+
+    #[ORM\Column]
+    private ?string $nomPrenomPoseur = null;
+
+    #[ORM\OneToOne(inversedBy: "congesdemande", targetEntity: User::class)]
+    private $user;
+
+    private int $listDelegationFromForm;
+
+    private ?bool $delegationBoolFromForm = null;
 
 
+    #[ORM\Column(nullable: true)]
+    private string $statut = "Demandé";
+
+
+        public function __construct()
+    {
+    }
 
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getTitle(): ?string
+    public function getTypeDeConges(): ?string
     {
-        return $this->title;
+        return $this->typeDeConges;
     }
 
-    public function setTitle(string $title): self
+    public function setTypeDeConges(string $typeDeConges): self
     {
-        $this->title = $title;
+        $this->typeDeConges = $typeDeConges;
 
         return $this;
     }
 
-    public function getStart(): ?\DateTimeInterface
+    public function getDateDebut(): ?\DateTimeInterface
     {
-        return $this->start;
+        return $this->dateDebut;
     }
 
-    public function setStart(\DateTimeInterface $start): self
+    public function setDateDebut(\DateTimeInterface $dateDebut): self
     {
-        $this->start = $start;
+        $this->dateDebut = $dateDebut;
 
         return $this;
     }
 
-    public function getEnd(): ?\DateTimeInterface
+    public function getDateFin(): ?\DateTimeInterface
     {
-        return $this->end;
+        return $this->dateFin;
     }
 
-    public function setEnd(\DateTimeInterface $end): self
+    public function setDateFin(\DateTimeInterface $dateFin): self
     {
-        $this->end = $end;
+        $this->dateFin = $dateFin;
 
         return $this;
     }
 
-    public function getDescription(): ?string
+    public function getInformationsComplementaire(): ?string
     {
-        return $this->description;
+        return $this->informationsComplementaire;
     }
 
-    public function setDescription(string $description): self
+    public function setInformationsComplementaire(string $informationsComplementaire): self
     {
-        $this->description = $description;
+        $this->informationsComplementaire = $informationsComplementaire;
 
         return $this;
     }
 
     public function getIdBeneficiaire(): ?int
     {
-        return $this->id_beneficiaire;
+        return $this->idBeneficiaire;
+    }
+
+    public function setIdBeneficiaire(int $idBeneficiaire): self
+    {
+        $this->idBeneficiaire = $idBeneficiaire;
+
+        return $this;
+    }
+
+    public function getNomPrenomBeneficiaire(): ?string
+    {
+        return $this->nomPrenomBeneficiaire;
+    }
+
+    public function setNomPrenomBeneficiaire(string $nomPrenomBeneficiaire): self
+    {
+        $this->nomPrenomBeneficiaire = $nomPrenomBeneficiaire;
+
+        return $this;
     }
 
     public function getIdPoseur(): ?int
     {
-        return $this->id_poseur;
+        return $this->idPoseur;
     }
 
-    public function setIBeneficiaire(int $id_beneficiaire): self
+
+    public function setIdPoseur(int $idPoseur): self
     {
-        $this->id_beneficiaire = $id_beneficiaire;
+        $this->idPoseur = $idPoseur;
+
+        return $this;
+    }
+
+    public function getNomPrenomPoseur(): ?string
+    {
+        return $this->nomPrenomPoseur;
+    }
+
+    public function setNomPrenomPoseur(string $nomPrenomPoseur): self
+    {
+        $this->nomPrenomPoseur = $nomPrenomPoseur;
 
         return $this;
     }
 
 
-    public function setIdPoseur(int $id_poseur): self
+    public function getListDelegationFromForm(): int
     {
-        $this->id_poseur = $id_poseur;
+        return $this->listDelegationFromForm;
+    }
+
+    public function setListDelegationFromForm(int $listDelegationFromForm): void
+    {
+        $this->listDelegationFromForm = $listDelegationFromForm;
+    }
+
+    public function isDelegationBoolFromForm(): ?bool
+    {
+        return $this->delegationBoolFromForm;
+    }
+
+    public function setDelegationBoolFromForm(?bool $delegationBoolFromForm): self
+    {
+        $this->delegationBoolFromForm = $delegationBoolFromForm;
 
         return $this;
     }
 
-    public function setIdBeneficiaire(int $id_beneficiaire): self
+    public function getStatut(): string
     {
-        $this->id_beneficiaire = $id_beneficiaire;
+        return $this->statut;
+    }
+
+    public function setStatut(string $statut): self
+    {
+        $this->statut = $statut;
 
         return $this;
     }

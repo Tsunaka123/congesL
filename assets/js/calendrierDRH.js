@@ -7,7 +7,7 @@ import timeGridPlugin from '@fullcalendar/timegrid';
 import resourceTimelinePlugin from '@fullcalendar/resource-timeline';
 import frLocale from '@fullcalendar/core/locales/fr';
 
-import '../styles/calendar/calendar.scss'
+import '../styles/calendrierDRH/calendrierDRH.scss'
 import '../styles/app.scss'
 
 document.addEventListener('DOMContentLoaded', function() {

@@ -1,5 +1,5 @@
-<form method="post" action="{{ path('app_gerersesconges_supprimerconges', {'id': conges.id}) }}" onsubmit="return confirm('Etes-vous sûr de vouloir supprimer ce congé?');">
+<form method="post" action="{{ path('app_gerersesconges_supprimerconges', {'id': congesdemande.id}) }}" onsubmit="return confirm('Etes-vous sûr de vouloir supprimer ce congé?');">
     <input type="hidden" name="_method" value="DELETE">
-    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ conges.id) }}">
+    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ congesdemande.id) }}">
     <button class="btn">Supprimer</button>
 </form>

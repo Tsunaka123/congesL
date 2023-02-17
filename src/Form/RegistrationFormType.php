@@ -4,20 +4,17 @@ namespace App\Form;
 
 use App\Entity\Service;
 use App\Entity\User;
-use Doctrine\ORM\EntityRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\CallbackTransformer;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
-use Symfony\Component\Form\Extension\Core\Type;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Validator\Constraints\IsTrue;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
 
@@ -81,13 +78,23 @@ class RegistrationFormType extends AbstractType
                 'multiple' => false,
             ])
 
+            ->add('service', EntityType::class, [
+                'class' => Service::class,
+                'choice_label' => 'libService',
+                'label' => 'Choisir le service : ',
+            ])
+
+            /**
+             *Code utilisable potentiellement pour sous service
             ->add('idServiceFromForm', EntityType::class, [
                 'class' => Service::class,
                 'label' => 'Choisir le service : ',
                 'choice_label' => 'libService',
                 'multiple' => true,
                 'expanded' => true,
-        ])
+            ])
+            */
+
 
             ->add('commentaireU', TextareaType::class, [
                 'label' => 'Commentaire',

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Controller\calendrier;
+namespace App\Controller\calendrierDRH;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -9,11 +9,11 @@ use Symfony\Component\Routing\Annotation\Route;
 class CalendrierController extends AbstractController
 {
     /**
-     * @Route("u/calendrier", name="app_fucking_calendrier")
+     * @Route("u/calendrierDRH", name="app_calendrier_drh")
      */
     public function index(): Response
     {
-        return $this->render('calendrier/index.html.twig', [
+        return $this->render('calendrierDRH/calendrierDRH.html.twig', [
             'controller_name' => 'CalendrierController',
         ]);
     }

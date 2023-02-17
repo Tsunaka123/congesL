@@ -5,17 +5,18 @@ namespace App\Entity;
 use App\Repository\DelegationRepository;
 use Doctrine\ORM\Mapping as ORM;
 
-
+#[ORM\Table(name: 'Delegation')]
 #[ORM\Entity(repositoryClass: DelegationRepository::class)]
 class Delegation
 {
 
-    #[ORM\Column]
     #[ORM\Id]
-    private ?int $idUserDelegue = null;
+    #[ORM\ManyToOne(targetEntity:User::class, inversedBy: "delegationsIdUserDelegue")]
+    #[ORM\JoinColumn(nullable:true)]
+    private User $idUserDelegue;
 
     #[ORM\Id]
-    #[ORM\ManyToOne(targetEntity:User::class, inversedBy: "delegations")]
+    #[ORM\ManyToOne(targetEntity:User::class, inversedBy: "delegationsIdUserDelegant")]
     #[ORM\JoinColumn(nullable:true)]
     private User $idUserDelegant;
 
@@ -24,12 +25,12 @@ class Delegation
     {
     }
 
-    public function getIdUserDelegue(): ?int
+    public function getIdUserDelegue(): ?User
     {
         return $this->idUserDelegue;
     }
 
-    public function setIdUserDelegue(int $idUserDelegue): self
+    public function setIdUserDelegue(?user $idUserDelegue): self
     {
         $this->idUserDelegue = $idUserDelegue;
 

@@ -1,0 +1,16 @@
+@import "assets/styles/app";
+@import "../../../node_modules/bootstrap/scss/bootstrap";
+
+
+.table {
+  max-width: 800px;
+  max-height: 500px;
+
+}
+
+@media (max-width: 768px) {
+
+  .table-responsive {
+    max-height:650px;
+  }
+}

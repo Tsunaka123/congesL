@@ -42,12 +42,14 @@
                                 </a>
 
                                 <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                    <li><a class="dropdown-item" href="{{ path('app_gerersesconges_voirsesconges') }}">Demande de congés</a></li>
+                                    <li><a class="dropdown-item" href="{{ path('app_gerersesconges_nouveauconges') }}">Demande de congés</a></li>
+                                    <li><a class="dropdown-item" href="{{ path('app_gerersesconges_voirsesconges') }}">Voir ses demandes</a></li>
+                                    <li><a class="dropdown-item" href="{{ path('app_gerersesconges_voirsescongesdelegue') }}">Voir les demandes délégué</a></li>
                                     <li><a class="dropdown-item" href="{{ path('app_gerersesconges_delegation') }}">Déleguer ses demandes de congés</a></li>
                                     <li><a class="dropdown-item" href="#">Non défini</a></li>
 
                                     <li><hr class="dropdown-divider"></li>
-                                    <li><a class="dropdown-item" href="{{ path('app_fucking_calendrier') }}">Planning</a></li>
+                                    <li><a class="dropdown-item" href="#">Planning</a></li>
                                     <li><hr class="dropdown-divider"></li>
                                     <li><a class="dropdown-item" href="#">Historique</a></li>
 
@@ -66,7 +68,7 @@
                                 </a>
 
                                 <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                    <li><a class="dropdown-item" href="#">Non défini</a></li>
+                                    <li><a class="dropdown-item" href="{{ path('app_valideur_validationconges') }}">Valider un conges</a></li>
                                     <li><a class="dropdown-item" href="#">Non défini</a></li>
                                     <li><a class="dropdown-item" href="#">Non défini</a></li>
                                 </ul>
@@ -86,7 +88,7 @@
                                 </a>
 
                                 <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                    <li><a class="dropdown-item" href="#">Non défini</a></li>
+                                    <li><a class="dropdown-item" href="{{ path('app_calendrier_drh') }}">Planning</a></li>
                                     <li><a class="dropdown-item" href="#">Non défini</a></li>
                                     <li><a class="dropdown-item" href="#">Non défini</a></li>
                                 </ul>
@@ -96,7 +98,7 @@
                     {% endif %}
 
 
-                    <!-- Dropdown menu DRH - Si user a le role admin alors il pourra voir -->
+                    <!-- Dropdown menu DRH - Si user a le role DRH alors il pourra voir -->
                     {% if is_granted("ROLE_ADMIN") %}
 
                         <li class="nav-item dropdown ms-0 me-5 my-3">

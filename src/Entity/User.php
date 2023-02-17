@@ -12,6 +12,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 
+#[ORM\Table(name: 'User')]
 #[UniqueEntity('mailU', 'loginU')]
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 #[UniqueEntity(fields: ['loginU'], message: 'There is already an account with this username')]
@@ -39,18 +40,30 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private ?string $mailU = null;
 
     #[ORM\Column(nullable: false)]
-    private array $roles = [];
+    private array $roles = ['ROLE_USER'];
 
     #[ORM\Column(nullable: true)]
-    private array $idServiceU;
+    private int $idServiceU;
 
-    private Collection $idServiceFromForm;
+    /**
+     *Utilisation possible pour sous service
+    private int $idServiceFromForm;
+    */
 
     #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $commentaireU = null;
 
-    #[ORM\OneToMany(targetEntity: Delegation::class, mappedBy: "idUserDelegant")]
-    private Collection $delegations;
+    #[ORM\OneToOne(mappedBy: "user", targetEntity: Service::class)]
+    private $service;
+
+    #[ORM\OneToOne(mappedBy: "user", targetEntity: CongesDemande::class)]
+    private $congesdemande;
+
+    #[ORM\OneToMany(mappedBy: "idUserDelegue", targetEntity: Delegation::class)]
+    private Collection $delegationsIdUserDelegue;
+
+    #[ORM\OneToMany(mappedBy: "idUserDelegant", targetEntity: Delegation::class)]
+    private Collection $delegationsIdUserDelegant;
 
 
     public function eraseCredentials()
@@ -59,9 +72,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     public function __construct()
     {
-        $this->delegations = new ArrayCollection();
-        $this->idServiceFromForm = new ArrayCollection();
-
+        $this->delegationsIdUserDelegant = new ArrayCollection();
+        $this->delegationsIdUserDelegue = new ArrayCollection();
+        $this->roles = ['ROLE_USER'];
     }
 
     public function getId(): ?int
@@ -147,7 +160,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function getRoles(): array
     {
         $roles = $this->roles;
-        // guarantee every user at least has ROLE_USER
         $roles[] = 'ROLE_USER';
 
         return array_unique($roles);
@@ -160,29 +172,32 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function getIdServiceU(): array
+    public function getIdServiceU(): int
     {
         return $this->idServiceU;
     }
 
-    public function setIdServiceU(array $idServiceU): self
+    public function setIdServiceU(int $idServiceU): self
     {
         $this->idServiceU = $idServiceU;
 
         return $this;
     }
 
-    public function getIdServiceFromForm(): ArrayCollection
+    /**
+     * Utilisation possible pour sous service
+    public function getIdServiceFromForm(): int
     {
         return $this->idServiceFromForm;
     }
 
-    public function setIdServiceFromForm(ArrayCollection $idServiceFromForm): self
+    public function setIdServiceFromForm(int $idServiceFromForm): self
     {
         $this->idServiceFromForm = $idServiceFromForm;
 
         return $this;
     }
+     */
 
     public function getCommentaireU(): ?string
     {
@@ -196,9 +211,26 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function getDelegations(): ArrayCollection
+    public function getDelegationsIdUserDelegant(): ArrayCollection
     {
-        return $this->delegations;
+        return $this->delegationsIdUserDelegant;
     }
+
+    public function getDelegationsIdUserDelegue(): ArrayCollection
+    {
+        return $this->delegationsIdUserDelegue;
+    }
+
+        public function getService(): ?Service
+{
+    return $this->service;
+}
+
+    public function setService(Service $service): self
+{
+    $this->service = $service;
+
+    return $this;
+}
 
 }

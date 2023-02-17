@@ -21,10 +21,12 @@ Encore
      * and one CSS file (e.g. app.css) if your JavaScript imports CSS.
      */
     .addEntry('app', './assets/js/app.js')
-    .addEntry('calendar', './assets/js/calendar.js')
-    .addEntry('gerersesconges', './assets/js/gerersesconges.js')
+    .addEntry('calendrierDRH', './assets/js/calendrierDRH.js')
     .addEntry('login', './assets/js/login.js')
-    .addEntry('voirsesconges', './assets/js/geresesconges_voirsesconges.js')
+    .addEntry('voirsesconges', './assets/js/gerersesconges_voirsesconges.js')
+    .addEntry('voirsescongesdelegue', './assets/js/gerersesconges_voirsescongesdelegue.js')
+    .addEntry('nouveauconges', './assets/js/gerersesconges_nouveauconges.js')
+
 
 
 

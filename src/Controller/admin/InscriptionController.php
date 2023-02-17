@@ -36,15 +36,14 @@ class InscriptionController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
 
 
-            $data = $form->get('idServiceFromForm')->getData();
+            $data = $form->get('service')->getData();
             dump($data);
 
-            foreach ($data as $item) {
-                $idf[] = $item->getId();
-            }
-            dump($idf);
+                $ids = $data->getId();
 
-            $utilisateur->setIdServiceU([$idf]);
+            dump($ids);
+
+            $utilisateur->setIdServiceU($ids);
             dump($utilisateur);
             // encode the plain password
             $utilisateur->setPassword(

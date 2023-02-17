@@ -1,12 +1,36 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Nouveau congé{% endblock %}
+{% block title %}Demander un nouveau congés{% endblock %}
 
 
 {% block body %}
     <h1>Enregistrer un nouveau congé</h1>
 
-    {{ include('gerersesconges/_form.html.twig') }}
+    {{ form_start(form) }}
+
+    {{ form_row(form.delegationBoolFromForm) }}
+
+    <div class="delegation-container"{% if not form.delegationBoolFromForm.vars.checked %} style="display:none"{% endif %}>
+        {{ form_row(form.listDelegationFromForm) }}
+    </div>
+
+    {{ form_row(form.typeDeConges) }}
+    {{ form_row(form.dateDebut) }}
+    {{ form_row(form.dateFin) }}
+    {{ form_row(form.informationsComplementaire) }}
+    <button class="submit">{{ button_label|default('Sauvegarder') }}</button>
+
+    {{ form_end(form) }}
+
 
     <a href="{{ path('app_gerersesconges_voirsesconges') }}">Retour a la liste</a>
+
+{% endblock %}
+
+{% block javascripts %}
+    {{ encore_entry_script_tags('nouveauconges') }}
+<script>
+    const delegationCheckbox = document.querySelector('#{{ form.delegationBoolFromForm.vars.id }}');
+    const delegationContainer = document.querySelector('.delegation-container');
+</script>
 {% endblock %}

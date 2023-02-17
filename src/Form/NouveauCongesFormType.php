@@ -3,41 +3,66 @@
 namespace App\Form;
 
 use App\Entity\CongesDemande;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\ColorType;
-use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class NouveauCongesFormType extends AbstractType
 {
-    public function buildForm(FormBuilderInterface $builder, array $options)
+    public function buildForm(FormBuilderInterface $builder, array $options,)
     {
+        $delegationFromController = $options['delegationFromController'];
+
+        $keys = array_keys($delegationFromController);
+        $values = array_values($delegationFromController);
+
         $builder
-            ->add('id_beneficiaire', ChoiceType::class, [
-                'label' => 'Pour qui est le congés  ? :',
-                'choices' => [
-                    'Non défini' => '',
-                ],
-                'expanded' => false,
-                'multiple' => false,
+
+            ->add('delegationBoolFromForm', CheckboxType::class, [
+                'label' => 'Delegation ?',
+                'required' => false,
             ])
-            ->add('title')
-            ->add('start', DateTimeType::class, [
-                'date_widget' => 'single_text'
+
+            ->add('listDelegationFromForm', ChoiceType::class, [
+                'label' => "Liste des délégations :",
+                'choices' => array_combine($values, $keys),
             ])
-            ->add('end', DateTimeType::class, [
-                'date_widget' => 'single_text'
+
+            ->add('typeDeConges', TextType::class, [
+                'label' => "Type de congés : ",
+                'required' => true,
             ])
-            ->add('description')
+
+            ->add('dateDebut', DateType::class, [
+                'widget' => 'single_text',
+                'label' => 'Date de début : ',
+                'html5' => true,
+                'format' => 'yyyy-MM-dd'
+            ])
+
+            ->add('dateFin', DateType::class, [
+                'widget' => 'single_text',
+                'label' => 'Date de fin : ',
+                'html5' => true,
+                'format' => 'yyyy-MM-dd'
+            ])
+
+            ->add('informationsComplementaire', TextType::class, [
+                'label' => "Informations complémentaire : ",
+                'required' => false,
+        ])
         ;
     }
 
     public function configureOptions(OptionsResolver $resolver)
     {
+        $resolver->setRequired('delegationFromController');
         $resolver->setDefaults([
             'data_class' => CongesDemande::class,
-        ]);
+            ]);
     }
 }

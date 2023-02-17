@@ -3,35 +3,35 @@
 {% block title %}Voir ses congés{% endblock %}
 
 {% block stylesheets %}
-    {{ encore_entry_link_tags('voirsesconges') }}
+    {{ encore_entry_link_tags('voirsescongesdelegue') }}
 {% endblock %}
 
 
 {% block body %}
-<html>
+    <html>
 
-<head>
-</head>
+    <head>
+    </head>
 
-<body>
+    <body>
     <div class="container-fluid">
         <div class="d-flex align-items-center justify-content-center" style="height: 150px">
             <h1 class="tittle">Vos nouvelles demande de congés :</h1>
         </div>
 
-<div class="d-flex align-items-center justify-content-center" style="height: 500px">
+        <div class="d-flex align-items-center justify-content-center" style="height: 500px">
             <div class="table-responsive align-items-center justify-content-center" style="height: 500px">
                 <table class="table table-striped">
-                     <thead class="table-primary">
-                            <tr>
-                                <th>Type de congés</th>
-                                <th>Début</th>
-                                <th>Fin</th>
-                                <th>Description</th>
-                                <th>Statut</th>
-                                <th>Actions</th>
-                            </tr>
-                     </thead>
+                    <thead class="table-primary">
+                    <tr>
+                        <th>Type de congés</th>
+                        <th>Début</th>
+                        <th>Fin</th>
+                        <th>Description</th>
+                        <th>Statut</th>
+                        <th>Actions</th>
+                    </tr>
+                    </thead>
                     <tbody>
                     {% for congesdemande in congesdemande %}
                         <tr>
@@ -57,7 +57,7 @@
                     </tbody>
                 </table>
             </div>
-    </div>
+        </div>
 
 
         <div class="d-flex align-items-center justify-content-center" style="height: 150px">
@@ -69,11 +69,11 @@
 
     </div>
 
-</body>
+    </body>
 
-</html>
+    </html>
 {% endblock %}
 
 {% block javascripts %}
-    {{ encore_entry_script_tags('voirsesconges') }}
+    {{ encore_entry_script_tags('voirsescongesdelegue') }}
 {% endblock %}
